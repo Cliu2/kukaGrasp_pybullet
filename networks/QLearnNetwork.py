@@ -79,7 +79,7 @@ class possibilityNetwork():
 		middleLayer=Conv2D(64, (6,6), strides=2, activation='relu',padding='same')(imageInput)
 		middleLayer=MaxPooling2D(pool_size=(3,3))(middleLayer)
 		for convlayer in range(3):
-			middleLayer=Conv2D(64, (5,5),strides=3,activation='relu',padding='same')(middleLayer)
+			middleLayer=Conv2D(64, (5,5) ,activation='relu',padding='same')(middleLayer)
 		imageFeatures=MaxPooling2D(pool_size=(3,3))(middleLayer)
 		imageFeatureShape=imageFeatures.shape
 
@@ -97,6 +97,7 @@ class possibilityNetwork():
 		middleLayer=Flatten()(middleLayer)
 		middleLayer=Dense(64, activation='relu')(middleLayer)
 		middleLayer=Dense(64, activation='relu')(middleLayer)
+		middleLayer=Dense(32, activation='relu')(middleLayer)
 		rewardOutput=Dense(1, activation='linear', name='rewardOutput')(middleLayer)
 		model=Model(inputs=[imageInput,actionInput], outputs=[rewardOutput])
 		model.compile(loss='MSE', optimizer='Adadelta')
@@ -110,14 +111,19 @@ class possibilityNetwork():
 		"can be improved, add prediction on next state"
 		self.model.train_on_batch([state,action],reward)
 
-	def trainWithNextState(self,state,action,reward,nextState,actionSpace):
+	def trainWithNextState(self,state,action,reward,nextState,actionSpace,breakpoints=None):
 		state,action,reward,nextState=np.array(state),np.array(action),np.array(reward),np.array(nextState)
 		target=[]
 		for i in range(len(reward)):
-			nextAction=self.getBestAction(nextState[i],actionSpace)
-			t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
-				+ self.rewardStepLength*(reward[i]+self.predictReward(nextState[i],nextAction)* \
-					self.discounting)
+			t=0
+			if breakpoints==None or (i+1) not in breakpoints:
+				t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
+					+self.rewardStepLength*(reward[i]+self.predictReward(nextState[i],action[i+1]) \
+						* self.discounting)
+			else:
+				nextAction=self.getBestAction(nextState[i],actionSpace)
+				t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
+					+ self.rewardStepLength*(reward[i])
 			target.append(t)
 		# self.model.train_on_batch([state,action],target)
 		self.model.fit([state,action],target,verbose=1,epochs=self.epochs)
@@ -148,7 +154,7 @@ class possibilityNetwork():
 		actions=np.array(actions[-6:])
 		mean=np.mean(actions,axis=0)
 		covariance=np.cov(actions,rowvar=0)
-		while np.linalg.norm(bestAction-mean)>0.01:
+		while np.linalg.norm(bestAction-mean)>0.1:
 			actions=[]
 			bestAction=mean
 			while len(actions)<64:
