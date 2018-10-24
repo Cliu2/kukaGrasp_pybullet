@@ -1,4 +1,4 @@
-import os, inspect
+import os, inspect, pickle
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(os.path.dirname(currentdir))
 os.sys.path.insert(0,parentdir)
@@ -13,12 +13,12 @@ from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
 import atexit
 import math,random
 
-MODEL_FILE_NAME="../models/20181020_no_action_penalty.h5"
-MAXTRAIL=3000
-DISCOUNTING_RATE=0.75
+MODEL_FILE_NAME="../models/20181023_actionPenalty_n0p1_new_fitting_method.h5"
+MAXTRAIL=5000
+DISCOUNTING_RATE=0.7
 WIDTH,HEIGHT=512,512 #set resolution of camera
 CHANNEL=3
-SUCCESS_REWARD=100
+SUCCESS_REWARD=50
 
 def exit_handler():
 	try:
@@ -48,7 +48,7 @@ def initEnvironment():
 
 def naiveHuresticAction():
 	dx, dy, dz, da = environment.action_space.sample()
-	if np.random.random() < 0.5:
+	if np.random.random() < 0.6:
 		dz = -1
 	action = [dx, dy, dz, da]
 	return action
@@ -61,6 +61,7 @@ if __name__=="__main__":
 	nw.rewardStepLength=0.5
 	statesForTrain,actions,rewards,nextStates=[],[],[],[]
 	breakpoints=[]
+	successRateHistory=[]
 	while trail<MAXTRAIL:
 		environment._numObjects=random.randint(2,6)	#randomize number of obejcts
 		initState=environment.reset()
@@ -70,7 +71,7 @@ if __name__=="__main__":
 		while not done and step<20:
 			statesForTrain.append(np.array(list(initState)+list(state)))
 			action=None
-			if np.random.random()<0.8:#/(1+0.1*trail): # some naive hurestic
+			if np.random.random()< max(0.3,0.8/(1+0.001*trail)): # some naive hurestic
 				action=naiveHuresticAction()
 			else:
 				action=nw.getBestAction(statesForTrain[-1],environment.action_space)
@@ -94,6 +95,9 @@ if __name__=="__main__":
 		# print("rewards",rewards)
 		if trail%10==0:
 			print("grasp success rate:",success/trail)
+			successRateHistory.append(success/trail)
+			with open(MODEL_FILE_NAME[0:8]+'_successRateHistory.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
+				pickle.dump([successRateHistory],f)
 
 		#""" train network with information given on next state
 		# graspSuccess= rewards[-1]==SUCCESS_REWARD
@@ -101,14 +105,14 @@ if __name__=="__main__":
 		# nw.rewardStepLength=1 #max(0.01,nw.rewardStepLength*0.97)
 		# rewards[-1]=max(0,rewards[-1])
 		breakpoints.append(step)
-		if trail%20==0:
-			print(breakpoints)
+		if trail%2==0:
+			# print(breakpoints)
 			for i in range(1,len(breakpoints)):
 				breakpoints[i]=breakpoints[i]+breakpoints[i-1]
-			print(breakpoints)
-			nw.epochs=max(int(50/(1+1/15*trail)),10)
+			nw.epochs=max(int(10/(1+1/15*trail)),2)
 			nw.trainWithNextState(statesForTrain,actions,rewards,nextStates,environment.action_space,breakpoints)
 			statesForTrain,actions,rewards,nextStates=[],[],[],[]
+			breakpoints=[]
 		#"""
 
 		

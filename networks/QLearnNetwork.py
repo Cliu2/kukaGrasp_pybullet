@@ -114,18 +114,23 @@ class possibilityNetwork():
 	def trainWithNextState(self,state,action,reward,nextState,actionSpace,breakpoints=None):
 		state,action,reward,nextState=np.array(state),np.array(action),np.array(reward),np.array(nextState)
 		target=[]
-		for i in range(len(reward)):
-			t=0
-			if breakpoints==None or (i+1) not in breakpoints:
-				t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
-					+self.rewardStepLength*(reward[i]+self.predictReward(nextState[i],action[i+1]) \
-						* self.discounting)
-			else:
-				nextAction=self.getBestAction(nextState[i],actionSpace)
-				t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
-					+ self.rewardStepLength*(reward[i])
-			target.append(t)
+		# for i in range(len(reward)):
+		# 	t=0
+		# 	if breakpoints==None or (i+1) not in breakpoints:
+		# 		t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
+		# 			+self.rewardStepLength*(reward[i]+self.predictReward(nextState[i],action[i+1]) \
+		# 				* self.discounting)
+		# 	else:
+		# 		nextAction=self.getBestAction(nextState[i],actionSpace)
+		# 		t=(1-self.rewardStepLength)*self.predictReward(state[i],action[i]) \
+		# 			+ self.rewardStepLength*(reward[i])
+		# 	target.append(t)
 		# self.model.train_on_batch([state,action],target)
+		"""a new method here-20181023"""
+		target=list(reward)
+		for i in range(len(reward)-1,-1,-1):
+			if breakpoints==None or (i+1) not in breakpoints:
+				target[i]=self.discounting*target[i+1]+target[i]
 		self.model.fit([state,action],target,verbose=1,epochs=self.epochs)
 
 	def predictReward(self, state, action):
