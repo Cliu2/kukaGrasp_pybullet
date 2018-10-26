@@ -73,6 +73,7 @@ class possibilityNetwork():
 		self.rewardStepLength=rewardStepLength
 		self.discounting=discounting
 		self.epochs=1
+		self.action_space=None
 
 	def buildModel(self):
 		imageInput=Input(shape=(self.imageDimension[0]*2,self.imageDimension[1],self.imageDimension[2]), name='imageInput')
@@ -132,6 +133,20 @@ class possibilityNetwork():
 			if breakpoints==None or (i+1) not in breakpoints:
 				target[i]=self.discounting*target[i+1]+target[i]
 		self.model.fit([state,action],target,verbose=1,epochs=self.epochs)
+
+	def trainSuccessFail(self,state,action,reward,utility,nextState):
+		state,action,reward=np.array(state),np.array(action),np.array(reward)
+		target=np.array(utility)
+		# target=[]
+		# for i in range(len(reward)):
+		# 	target.append(max(utility[i], \
+		# 			(reward[i]+self.getUtility(nextState[i]))))
+		# target=np.array(target)
+		self.model.fit([state,action],target,verbose=1,epochs=self.epochs)
+
+	def getUtility(self,state):
+		action=self.getBestAction(state,self.action_space)
+		return self.predictReward(state,action)
 
 	def predictReward(self, state, action):
 		state,action=np.array(state),np.array(action)
