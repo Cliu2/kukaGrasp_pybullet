@@ -71,7 +71,7 @@ class LanceKukaDiverseObjectEnv(KukaDiverseObjectEnv):
 	def _reward(self):
 		#override the reward method, adding reward for getting close to an object
 		# reward = 0
-		reward = -0.1 #give a cost for each step, hopefully will turn to short solution
+		reward = -1 #give a cost for each step, hopefully will turn to short solution
 		self._graspSuccess = 0
 		# armPos=np.array(self._kuka.getObservation()[0:3])
 		closest=9999
@@ -79,7 +79,7 @@ class LanceKukaDiverseObjectEnv(KukaDiverseObjectEnv):
 			pos, _ = p.getBasePositionAndOrientation(uid)
 			if pos[2] > 0.2:
 				self._graspSuccess += 1
-				reward = 50
+				reward = 500
 				return reward
 			pos=np.array(pos)
 			# distance=np.linalg.norm(armPos-pos)
