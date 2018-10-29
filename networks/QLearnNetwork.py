@@ -138,10 +138,11 @@ class possibilityNetwork():
 		state,action,reward=np.array(state),np.array(action),np.array(reward)
 		target=np.array(utility)
 		# target=[]
-		# for i in range(len(reward)):
-		# 	target.append(max(utility[i], \
-		# 			(reward[i]+self.getUtility(nextState[i]))))
-		# target=np.array(target)
+		for i in range(len(reward)):
+			# target.append(max(utility[i], \
+			# 		(reward[i]+self.getUtility(nextState[i]))))
+			target=max(utility[i],self.predictReward(state[i],action[i]))
+		target=np.array(target)
 		self.model.fit([state,action],target,verbose=1,epochs=self.epochs)
 
 	def getUtility(self,state):
