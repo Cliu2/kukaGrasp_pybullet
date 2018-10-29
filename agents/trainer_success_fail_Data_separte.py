@@ -13,20 +13,21 @@ from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
 import atexit
 import math,random
 
-MODEL_FILE_NAME="../models/20181024_successfail_trainer.h5"
+MODEL_FILE_NAME="20181024_successfail_trainer.h5"
 MAXTRAIL=5000
 DISCOUNTING_RATE=0.7
 WIDTH,HEIGHT=512,512 #set resolution of camera
 CHANNEL=3
 SUCCESS_REWARD=500
-MAX_DATA_SIZE=500
+MAX_DATA_SIZE=800
+SUCCESS_RATE_HISTORY=[]
 
 def exit_handler():
 	try:
-		nw.saveModel(MODEL_FILE_NAME)
+		nw.saveModel("../models/"+MODEL_FILE_NAME)
 		print("model saved as '",MODEL_FILE_NAME,"', exiting...")
-		with open(MODEL_FILE_NAME[0:8]+'_successRateHistory.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
-				pickle.dump([successRateHistory],f)
+		with open("../logs/"+MODEL_FILE_NAME[0:8]+"_successRateHistory.pkl", "wb") as f:  # Python 3: open(..., 'wb')
+				pickle.dump([SUCCESS_RATE_HISTORY],f)
 	except NameError:
 		pass
 
@@ -65,7 +66,6 @@ if __name__=="__main__":
 	success=0
 	nw.rewardStepLength=0.5
 	successData,failData=None,None
-	successRateHistory=[]
 	while trail<MAXTRAIL:
 		environment._numObjects=random.randint(1,9)	#randomize number of obejcts
 		initState=environment.reset()
@@ -115,13 +115,14 @@ if __name__=="__main__":
 		# print("rewards",rewards)
 		if trail%10==0:
 			print("grasp success rate:",success/trail)
-			successRateHistory.append(success/trail)
+			SUCCESS_RATE_HISTORY.append(success/trail)
 			
-		if trail%3==0:
-			data=successData if successData!=None else failData
+		if trail%10==0:
+			data=list(successData) if successData!=None else list(failData)
 			for i in range(5):
-				data[i]=list(successData[i]) if successData!=None else [] + \
-						list(failData[i]) if failData!=None else []
+				data[i]=(list(successData[i]) if successData!=None else []) + \
+						(list(failData[i]) if failData!=None else [])
+
 			nw.epochs=max(int(50/(1+1/15*trail)),20)
 			nw.trainSuccessFail(data[0],data[1],data[2],data[3],data[4])
 		#"""
