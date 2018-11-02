@@ -13,7 +13,7 @@ from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
 import atexit
 import math,random
 
-MODEL_FILE_NAME="20181029_successfail_trainer_dr0p9.h5"
+MODEL_FILE_NAME="20181102_successfail_trainer_dr0p9.h5"
 MAXTRAIL=5000
 DISCOUNTING_RATE=0.9
 WIDTH,HEIGHT=512,512 #set resolution of camera
@@ -21,12 +21,13 @@ CHANNEL=3
 SUCCESS_REWARD=500
 MAX_DATA_SIZE=1000
 SUCCESS_RATE_HISTORY=[]
+LAST_X_ROUND=100
 
 def exit_handler():
 	try:
-		nw.saveModel("../models/"+MODEL_FILE_NAME)
+		nw.saveModel(parentdir+"/kukaGrasp_pybullet/models/"+MODEL_FILE_NAME)
 		print("model saved as '",MODEL_FILE_NAME,"', exiting...")
-		with open("../logs/"+MODEL_FILE_NAME[0:8]+"_successRateHistory.pkl", "wb") as f:  # Python 3: open(..., 'wb')
+		with open(parentdir+"/kukaGrasp_pybullet/logs/"+MODEL_FILE_NAME[0:8]+"_successRateHistory.pkl", "wb") as f:  # Python 3: open(..., 'wb')
 				pickle.dump([SUCCESS_RATE_HISTORY],f)
 	except NameError:
 		pass
@@ -63,7 +64,7 @@ if __name__=="__main__":
 	environment,nw=initEnvironment()
 
 	trail=0
-	success=0
+	success=[]
 	nw.rewardStepLength=0.5
 	successData,failData=None,None
 	while trail<MAXTRAIL:
@@ -110,12 +111,16 @@ if __name__=="__main__":
 				failData=data
 
 		trail+=1
-		success+=1 if (rewards[-1]==SUCCESS_REWARD) else 0
+		success.append(1 if (rewards[-1]==SUCCESS_REWARD) else 0)
+		if trail>LAST_X_ROUND: success.pop(0)
 		print("trail",trail, (rewards[-1]==SUCCESS_REWARD))
 		# print("rewards",rewards)
 		if trail%10==0:
-			print("grasp success rate:",success/trail)
-			SUCCESS_RATE_HISTORY.append(success/trail)
+			scount=len([s for s in success if s==1])
+			lastSRate=scount/trail if trail<LAST_X_ROUND else scount/LAST_X_ROUND
+			
+			print("last ",LAST_X_ROUND," grasp success rate:",lastSRate)
+			SUCCESS_RATE_HISTORY.append(lastSRate)
 			
 		if trail%10==0:
 			data=list(successData) if successData!=None else list(failData)

@@ -136,8 +136,8 @@ class possibilityNetwork():
 
 	def trainSuccessFail(self,state,action,reward,utility,nextState):
 		state,action,reward=np.array(state),np.array(action),np.array(reward)
-		target=np.array(utility)
-		# target=[]
+		# target=np.array(utility)
+		target=[]
 		for i in range(len(reward)):
 			target.append(max(utility[i], \
 					(reward[i]+self.getUtility(nextState[i]))))
