@@ -12,9 +12,10 @@ import numpy as np
 from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
 import atexit
 import math,random
+import kukaGrasp_pybullet.agents.tester as agent_tester
 
 MODEL_FILE_NAME="20181102_successfail_trainer_dr0p9.h5"
-MAXTRAIL=5000
+MAXTRAIL=4000
 DISCOUNTING_RATE=0.9
 WIDTH,HEIGHT=512,512 #set resolution of camera
 CHANNEL=3
@@ -128,8 +129,12 @@ if __name__=="__main__":
 				data[i]=(list(successData[i]) if successData!=None else []) + \
 						(list(failData[i]) if failData!=None else [])
 
-			nw.epochs=max(int(50/(1+1/15*trail)),20)
+			nw.epochs=max(int(100/(1+1/15*trail)),40)
 			nw.trainSuccessFail(data[0],data[1],data[2],data[3],data[4])
 		#"""
 
-		
+	#after training, do a test
+	environment = None
+	environment = LanceKukaDiverseObjectEnv(renders=False, isDiscrete=False, \
+			removeHeightHack=True,width=512,height=512,cameraRandom=0,isTest=True)
+	agent_tester.test(MODEL_FILE_NAME,nw,environment)

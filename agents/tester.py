@@ -4,33 +4,33 @@ parentdir = os.path.dirname(os.path.dirname(currentdir))
 os.sys.path.insert(0,parentdir)
 
 from kukaGrasp_pybullet.environments.lance_kuka_diverse_env import LanceKukaDiverseObjectEnv
-import time
-import tensorflow as tf
-from keras.layers import merge
-from tensorflow import keras
 import numpy as np
+import tensorflow as tf
 from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
-import atexit
 import os
-import math
+import math,random
 
 MODEL_FILE_NAME='20181029_successfail_trainer_dr0p9.h5'
 TEST_ROUNDS=500
 
-if __name__=="__main__":
+def test(testModelName=None,nw=None,environment=None):
+	if testModelName!=None: MODEL_FILE_NAME=testModelName
 
-	nw=possibilityNetwork(imageDimension=(512,512,3), \
-		actionDimension=(4,), discounting=0.9)
-	nw.loadModel(parentdir+'/kukaGrasp_pybullet/models/'+MODEL_FILE_NAME)
+	if nw==None:
+		nw=possibilityNetwork(imageDimension=(512,512,3), \
+			actionDimension=(4,), discounting=0.9)
+		nw.loadModel(parentdir+'/kukaGrasp_pybullet/models/'+MODEL_FILE_NAME)
 
-	numObj=1
-	environment = LanceKukaDiverseObjectEnv(renders=False, isDiscrete=False, \
-		removeHeightHack=True,width=512,height=512,cameraRandom=1)
+	
+	if environment==None:
+		environment = LanceKukaDiverseObjectEnv(renders=True, isDiscrete=False, \
+			removeHeightHack=True,width=512,height=512,cameraRandom=0,isTest=False)
+
 	#environment = LanceKukaDiverseObjectEnv(renders=True, isDiscrete=False, removeHeightHack=True, numObjects=numObj)
 	success,total=0,0
 	for i in range(TEST_ROUNDS):
+		numObj=random.randint(2,8)
 		done=False
-		numObj=(numObj+1)%5+1
 		environment._numObjects=numObj
 		step=0
 		state=environment.reset()
@@ -46,4 +46,10 @@ if __name__=="__main__":
 		total+=1
 		print("success rate:",success/total)
 	with open(parentdir+"/kukaGrasp_pybullet/logs/"+MODEL_FILE_NAME+"_testResult.txt", "w") as f:  # Python 3: open(..., 'wb')
+		f.write("test rounds:"+str(TEST_ROUNDS))
+		f.write("----------environment config---------")
+		f.write("(to be added)")
 		f.write("over all success rate:" +str(success/total))
+
+if __name__=="__main__":
+	test()
