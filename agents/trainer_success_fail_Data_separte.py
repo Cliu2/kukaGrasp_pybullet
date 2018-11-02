@@ -13,13 +13,13 @@ from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
 import atexit
 import math,random
 
-MODEL_FILE_NAME="20181024_successfail_trainer.h5"
+MODEL_FILE_NAME="20181029_successfail_trainer_dr0p9.h5"
 MAXTRAIL=5000
-DISCOUNTING_RATE=0.7
+DISCOUNTING_RATE=0.9
 WIDTH,HEIGHT=512,512 #set resolution of camera
 CHANNEL=3
 SUCCESS_REWARD=500
-MAX_DATA_SIZE=800
+MAX_DATA_SIZE=1000
 SUCCESS_RATE_HISTORY=[]
 
 def exit_handler():
