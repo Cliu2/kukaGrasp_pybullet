@@ -3,24 +3,22 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(os.path.dirname(currentdir))
 os.sys.path.insert(0,parentdir)
 
-from environments.kuka_diverse_object_gym_env import KukaDiverseObjectEnv
-from environments.lance_kuka_diverse_env import LanceKukaDiverseObjectEnv
+from kukaGrasp_pybullet.environments.lance_kuka_diverse_env import LanceKukaDiverseObjectEnv
 import time
 import tensorflow as tf
 from keras.layers import merge
 from tensorflow import keras
 import numpy as np
-import networks.QLearnNetwork
+from kukaGrasp_pybullet.networks.QLearnNetwork import possibilityNetwork
 import atexit
 import os
 import math
 
 if __name__=="__main__":
 
-	nw=network.possibilityNetwork(imageDimension=(512,512,3), \
+	nw=possibilityNetwork(imageDimension=(512,512,3), \
 		actionDimension=(4,), discounting=0.9)
-	if os.path.isfile('../models/lancePossibilityModel_nextStateIncluded.h5'):
-		nw.loadModel('../models/lancePossibilityModel_nextStateIncluded.h5')
+	nw.loadModel('../models/20181029_successfail_trainer_dr0p9.h5')
 
 	numObj=1
 	environment = LanceKukaDiverseObjectEnv(renders=True, isDiscrete=False, \
