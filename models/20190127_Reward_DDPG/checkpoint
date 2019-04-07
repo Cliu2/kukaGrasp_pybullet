@@ -1,0 +1,2 @@
+model_checkpoint_path: "/root/project/pybullet3_lance/kukaGrasp_pybullet/models/20190127_Reward_DDPG/model.ckpt"
+all_model_checkpoint_paths: "/root/project/pybullet3_lance/kukaGrasp_pybullet/models/20190127_Reward_DDPG/model.ckpt"

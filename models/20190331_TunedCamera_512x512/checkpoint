@@ -1,0 +1,2 @@
+model_checkpoint_path: "/root/project/pybullet3_lance/kukaGrasp_pybullet/models/20190331_TunedCamera_512x512/model.ckpt"
+all_model_checkpoint_paths: "/root/project/pybullet3_lance/kukaGrasp_pybullet/models/20190331_TunedCamera_512x512/model.ckpt"

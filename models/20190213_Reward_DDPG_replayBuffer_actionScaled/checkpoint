@@ -1,0 +1,2 @@
+model_checkpoint_path: "/root/project/pybullet3_lance/kukaGrasp_pybullet/models/20190213_Reward_DDPG_replayBuffer_actionScaled/model.ckpt"
+all_model_checkpoint_paths: "/root/project/pybullet3_lance/kukaGrasp_pybullet/models/20190213_Reward_DDPG_replayBuffer_actionScaled/model.ckpt"

@@ -1,0 +1,1472 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>lua接口说明V4</title><meta name="description" content="lua接口说明V4"><meta name="viewport" content="width=device-width, user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="format-detection" content="telephone=no, email=no"><meta http-equiv="cleartype" content="on"><meta name="renderer" content="webkit"><meta name="msapplication-TileColor" content="#da532c"><meta name="theme-color" content="#ffffff"><style>body {
+  margin: 10px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 27px;
+  color: #333;
+  background-color: #fff
+}
+
+.previewer h1,
+.previewer h2,
+.previewer h3,
+.previewer h4,
+.previewer h5,
+.previewer h6 {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 20px;
+  color: inherit;
+  text-rendering: optimizelegibility
+}
+.previewer h1 small,
+.previewer h2 small,
+.previewer h3 small,
+.previewer h4 small,
+.previewer h5 small,
+.previewer h6 small {
+  font-weight: 400;
+  line-height: 1;
+  color: #999
+}
+.previewer h1,
+.previewer h2,
+.previewer h3 {
+  line-height: 40px
+}
+.previewer h1 {
+  margin: 50px 0 20px;
+  font-size: 30px;
+  color: #0077bb;
+}
+.previewer h2 {
+  margin: 35px 0 20px;
+  font-size: 26px
+}
+.previewer h3 {
+  margin: 20px 0;
+  font-size: 21px
+}
+.previewer h4 {
+  font-size: 18px
+}
+.previewer h5,
+.previewer h6 {
+  font-size: 16px
+}
+
+.previewer h1 small {
+  font-size: 24.5px
+}
+.previewer h2 small {
+  font-size: 17.5px
+}
+.previewer h3 small {
+  font-size: 14px
+}
+.previewer h4 small {
+  font-size: 14px
+}
+
+
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1
+}
+
+audio:not([controls]) {
+  display: none
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%
+}
+
+a {
+  color: #08c;
+  text-decoration: none;
+}
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px
+}
+
+a:hover,
+a:active {
+  outline: 0
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline
+}
+
+sup {
+  top: -.5em
+}
+
+sub {
+  bottom: -.25em
+}
+
+img {
+  width: auto\9;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic
+}
+
+#map_canvas img,
+.google-maps img {
+  max-width: none
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle
+}
+
+button,
+input {
+  *overflow: visible;
+  line-height: normal
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0
+}
+
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
+  cursor: pointer;
+  -webkit-appearance: button
+}
+
+label,
+select,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+input[type=radio],
+input[type=checkbox] {
+  cursor: pointer
+}
+
+input[type=search] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield
+}
+
+input[type=search]::-webkit-search-decoration,
+input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: none
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0 0 10px 25px
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-bottom: 0
+}
+
+li {
+  line-height: 27px
+}
+
+
+dl {
+  margin-bottom: 20px
+}
+
+dt,
+dd {
+  line-height: 20px
+}
+
+dt {
+  font-weight: 700
+}
+
+dd {
+  margin-left: 10px
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px dashed #cfcfcf;
+  margin: 30px 0;
+}
+
+abbr[title],
+abbr[data-original-title] {
+  cursor: help;
+  border-bottom: 1px dotted #999
+}
+
+
+blockquote {
+  padding: 10px 15px;
+  margin: 0 0 20px;
+  border-left-style: solid;
+  border-left-width: 10px;
+  border-color: #D6DBDF !important;
+  background: none repeat scroll 0 0 rgba(102,128,153,.05) !important;
+}
+
+blockquote p {
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 25px
+}
+
+blockquote small {
+  display: block;
+  line-height: 20px;
+  color: #999
+}
+
+blockquote small:before {
+  content: '\2014 \00A0'
+}
+
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: ""
+}
+
+address {
+  display: block;
+  margin-bottom: 20px;
+  font-style: normal;
+  line-height: 20px
+}
+
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-size: 12px;
+  color: #333;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px
+}
+
+code {
+  border: 0;
+  background-color: #D6DBDF;
+  border-radius: 4px;
+  color: #2C3E50 !important;
+  font-size: 14px;
+  padding: 2px 4px;
+  white-space: nowrap;
+}
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px
+}
+
+
+pre.prettyprint {
+  margin-bottom: 20px
+}
+
+pre code {
+  padding: 0;
+  color: inherit;
+  white-space: pre;
+  white-space: pre-wrap;
+  background-color: transparent;
+  border: 0
+}
+
+form {
+  margin: 0 0 20px
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0
+}
+
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 21px;
+  line-height: 40px;
+  color: #333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5
+}
+
+legend small {
+  font-size: 15px;
+  color: #999
+}
+
+label,
+input,
+button,
+select,
+textarea {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+label {
+  /*display: block;*/
+  padding-left: 5px;
+  vertical-align: bottom;
+  margin-bottom: 5px
+}
+
+select,
+textarea,
+input[type=text],
+input[type=password],
+input[type=datetime],
+input[type=datetime-local],
+input[type=date],
+input[type=month],
+input[type=time],
+input[type=week],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=search],
+input[type=tel],
+input[type=color],
+.uneditable-input {
+  display: inline-block;
+  height: 20px;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px
+}
+
+input,
+textarea,
+.uneditable-input {
+  width: 206px
+}
+
+textarea {
+  height: auto
+}
+
+textarea,
+input[type=text],
+input[type=password],
+input[type=datetime],
+input[type=datetime-local],
+input[type=date],
+input[type=month],
+input[type=time],
+input[type=week],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=search],
+input[type=tel],
+input[type=color],
+.uneditable-input {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border linear .2s, box-shadow linear .2s;
+  -moz-transition: border linear .2s, box-shadow linear .2s;
+  -o-transition: border linear .2s, box-shadow linear .2s;
+  transition: border linear .2s, box-shadow linear .2s
+}
+
+textarea:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=datetime]:focus,
+input[type=datetime-local]:focus,
+input[type=date]:focus,
+input[type=month]:focus,
+input[type=time]:focus,
+input[type=week]:focus,
+input[type=number]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=color]:focus,
+.uneditable-input:focus {
+  border-color: rgba(82, 168, 236, .8);
+  outline: 0;
+  outline: thin dotted \9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6)
+}
+
+input[type=radio],
+input[type=checkbox] {
+  margin: 4px 0 0;
+  margin-top: 1px \9;
+  *margin-top: 0;
+  line-height: normal
+}
+
+input[type=file],
+input[type=image],
+input[type=submit],
+input[type=reset],
+input[type=button],
+input[type=radio],
+input[type=checkbox] {
+  width: auto
+}
+
+select,
+input[type=file] {
+  height: 30px;
+  *margin-top: 4px;
+  line-height: 30px
+}
+
+select {
+  width: 220px;
+  background-color: #fff;
+  border: 1px solid #ccc
+}
+
+select[multiple],
+select[size] {
+  height: auto
+}
+
+select:focus,
+input[type=file]:focus,
+input[type=radio]:focus,
+input[type=checkbox]:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px
+}
+
+.uneditable-input,
+.uneditable-textarea {
+  color: #999;
+  cursor: not-allowed;
+  background-color: #fcfcfc;
+  border-color: #ccc;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .025);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .025);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .025)
+}
+
+.uneditable-input {
+  overflow: hidden;
+  white-space: nowrap
+}
+
+.uneditable-textarea {
+  width: auto;
+  height: auto
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #999
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #999
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #999
+}
+
+p {
+  margin: 0 0 10px
+}
+
+small {
+  font-size: 85%
+}
+
+strong {
+  font-weight: 700
+}
+
+em {
+  font-style: italic
+}
+
+cite {
+  font-style: normal
+}
+
+table {
+  max-width: 100%;
+  background: transparent;
+  border-spacing: 0;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  border-left: 0;
+}
+th, td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  /*border-left: 1px solid #ddd;*/
+  /*border-top: 1px;*/
+  border: 1px solid #ddd;
+}
+th {
+  font-weight: 700;
+  vertical-align: bottom;
+}
+
+thead:first-child tr:first-child > th:first-child,
+tbody:first-child tr:first-child > td:first-child {
+  border-top-left-radius: 4px;
+}
+
+thead:first-child tr:first-child > th:last-child,
+tbody:first-child tr:first-child > td:last-child {
+  border-top-right-radius: 4px;
+}
+thead:last-child tr:last-child>th:last-child,
+tbody:last-child tr:last-child>td:last-child,
+tfoot:last-child tr:last-child>td:last-child {
+  border-bottom-right-radius: 4px;
+}
+
+thead:last-child tr:last-child>th:first-child,
+tbody:last-child tr:last-child>td:first-child,
+tfoot:last-child tr:last-child>td:first-child {
+  border-bottom-left-radius: 4px;
+}
+tbody > tr:nth-child(2n+1)>td,
+tbody > tr:nth-child(2n+1)>th {
+  background-color: rgba(102,128,153,.05);
+}
+
+/*
+ * Markdown PDF CSS
+ */
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	padding: 10px;
+	overflow-wrap: break-word;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+:not(pre):not(.hljs) > code {
+	color: #A31515;
+	font-size: inherit;
+	font-family: inherit;
+}
+
+
+@media print {
+  * {
+    color: #000!important;
+    text-shadow: none!important;
+    background: transparent!important;
+    box-shadow: none!important
+  }
+  body {
+    background-color: #fff
+  }
+  a,
+  a:visited {
+    text-decoration: underline
+  }
+  a[href]:after {
+    content: " (" attr(href) ")"
+  }
+  abbr[title]:after {
+    content: " (" attr(title) ")"
+  }
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: ""
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid
+  }
+  thead {
+    display: table-header-group
+  }
+  tr,
+  img {
+    page-break-inside: avoid
+  }
+  img {
+    max-width: 100%!important
+  }
+  @page {
+    margin: .5cm
+  }
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3
+  }
+  h2,
+  h3 {
+    page-break-after: avoid
+  }
+}</style></head><body class="theme-white"><div class="previewer"><h1>Lua接口说明</h1>
+<h3><a href="#100">①指令目录</a></h3>
+<h3><a href="#101">②参数说明</a></h3>
+<h3><a href="#102">③指令说明</a></h3>
+<h3><a href="#103">④指令返回错误码说明</a></h3>
+<hr>
+<p><h100 id="100"><strong>①指令目录</strong></h100></p>
+<blockquote>
+<p>1  配置</p>
+</blockquote>
+<ul>
+<li><a href="#30">1.1   robot --------------------------------------------  选择机械手，包括模式</a></li>
+<li><a href="#18">1.2   runLuaFile -------------------------------------------- 运行指定路径的lua脚本文件</a></li>
+<li><a href="#19">1.3   sendFile -------------------------------------------- 通过tcp发送文件</a></li>
+<li><a href="#20">1.4   openFreqStatusPort -------------------------------------------- 请求服务端打开一个端口，按照给定的刷新频率不停的返回机械手状态,IP地址是连接机械手的IP地址</a></li>
+<li><a href="#27">1.5   luaSleep -------------------------------------------- 指定的事件条件成立之前或指定时间内，使程序处于待机状态</a></li>
+</ul>
+<blockquote>
+<p>2  获取机械手信息</p>
+</blockquote>
+<ul>
+<li><a href="#35">2.1   getPulses -------------------------------------------- 获取机械手各轴马达的当前脉冲</a></li>
+<li><a href="#34">2.2   getPos -------------------------------------------- 获取机械手当前位置</a></li>
+<li><a href="#22">2.3   getGlobalPoint -------------------------------------------- 获取点信息</a></li>
+<li><a href="#23">2.4   getRobotState -------------------------------------------- 获取机械手的当前状态</a></li>
+<li><a href="#21">2.5   addPtsFromYml -------------------------------------------- 从点数据yaml文件获得点信息，添加到全局变量</a></li>
+</ul>
+<blockquote>
+<p>3  go与ja命令设置</p>
+</blockquote>
+<ul>
+<li><a href="#1">3.1   go -------------------------------------------- 以 PTP(点对点) 动作从当前位置移动到指定位置，包括坐标位置移动，轴关节角度旋转</a></li>
+<li><a href="#31">3.2   coord -------------------------------------------- 产生一个包含坐标和姿态的表(table)</a></li>
+<li><a href="#2">3.3   goCoord -------------------------------------------- 以 PTP 动作从当前位置移动到指定位置</a></li>
+<li><a href="#4">3.4   goDelta -------------------------------------------- 以 PTP 动作从当前位置移动到增量后的指定位置</a></li>
+<li><a href="#32">3.5   ja -------------------------------------------- 产生一个包含各轴姿态角的表(table)</a></li>
+<li><a href="#33">3.6   jaDelta -------------------------------------------- 设定增量角度，在各轴原角度的基础上旋转到增加增量后的角度</a></li>
+<li><a href="#7">3.7   jaToFarthest -------------------------------------------- 在当前位置上，将机械手的轴关节往逆时针/顺时针方向旋转到最大角度</a></li>
+<li><a href="#3">3.8   goja -------------------------------------------- 根据关节角度计算的机器人坐标</a></li>
+<li><a href="#36">3.9   setSpeed -------------------------------------------- 设置go和ja命令的速度</a></li>
+<li><a href="#37">3.10   getSpeed -------------------------------------------- 获取go和ja命令运行时的速度</a></li>
+<li><a href="#38">3.11   setAccel -------------------------------------------- 设置go和ja命令的加速度</a></li>
+<li><a href="#39">3.12   getAccel -------------------------------------------- 获取go和ja命令运行时的加速度</a></li>
+</ul>
+<blockquote>
+<p>4  move命令设置</p>
+</blockquote>
+<ul>
+<li><a href="#8">4.1   move -------------------------------------------- 机械手以直线插补动作的形式到达指定的位置</a></li>
+<li><a href="#5">4.2   moveDelta -------------------------------------------- 在当前位置到指定增量后的位置之间以直线插补动作移动机械臂。</a></li>
+<li><a href="#6">4.3   moveToFarthest -------------------------------------------- 在当前位置将机械手往x轴或往y轴或往z轴移动到对应轴方向的最远边界点。</a></li>
+<li><a href="#15">4.4   setMoveSpeed -------------------------------------------- 以表达式或数值设置PTP(点对点)动作速度相对于最大动作速度(PTP动作)的比例</a></li>
+<li><a href="#16">4.5   getMoveSpeed -------------------------------------------- 获取PTP(点对点)动作速度相对于最大动作速度(PTP 动作)的比例</a></li>
+<li><a href="#40">4.6   setMoveAccel -------------------------------------------- 设置move命令的加速度</a></li>
+<li><a href="#41">4.7   getMoveAccel -------------------------------------------- 获取move命令运行时的加速度</a></li>
+</ul>
+<blockquote>
+<p>5  单方向与单旋转轴设置</p>
+</blockquote>
+<ul>
+<li><a href="#9">5.1   x_pace -------------------------------------------- 机械手在X轴上方向以给定的步长移动</a></li>
+<li><a href="#10">5.2   y_pace -------------------------------------------- 机械手在Y轴上方向以给定的步长移动</a></li>
+<li><a href="#11">5.3   z_pace -------------------------------------------- 机械手在Z轴上方向以给定的步长移动</a></li>
+<li><a href="#12">5.4   u_pace -------------------------------------------- 机械手在U轴方向以给定的角度旋转</a></li>
+<li><a href="#13">5.5   v_pace -------------------------------------------- 机械手在V轴方向以给定的角度旋转</a></li>
+<li><a href="#14">5.6   w_pace -------------------------------------------- 机械手在Z轴方向以给定的角度旋转</a></li>
+</ul>
+<blockquote>
+<p>6  输入输出设置</p>
+</blockquote>
+<ul>
+<li><a href="#24">6.1   on -------------------------------------------- 打开输出位，通过I/O(输入输出)和存储器I/O(输入输出)来使用</a></li>
+<li><a href="#25">6.2   off -------------------------------------------- 关闭输出位，通过I/O(输入输出)和存储器I/O(输入输出)来使用</a></li>
+<li><a href="#26">6.3   isOn -------------------------------------------- 读取输出位的状态</a></li>
+</ul>
+<blockquote>
+<p>7  急停设置</p>
+</blockquote>
+<ul>
+<li><a href="#17">7.1   emgStop -------------------------------------------- 急停设置，获取急停状态</a></li>
+<li><a href="#42">7.2   getEmgStop -------------------------------------------- 获取当前机械手的运动状态，停止或运动</a></li>
+</ul>
+<hr>
+<p><h101 id="101"><strong>②参数说明</strong></h101></p>
+<ul>
+<li>
+<p>x,y,z表示机械手X,Y,Z坐标，单位是毫米(mm)</p>
+</li>
+<li>
+<p>u,v,w表示机械手绕z,y,x轴的旋转角,单位角度(degree)</p>
+</li>
+<li>
+<p>j1,j2,j3,j4,j5,j6表示第1-6个关节的旋转角，单位角度(degree)</p>
+</li>
+<li>
+<p>可选参数：
+L表示左手模式，R表示右手模式，A表示是高手模式，B表示低手模式，I表示可被打断,无参数表示默认手模式</p>
+</li>
+<li>
+<p><strong>注意：</strong></p>
+</li>
+</ul>
+<p><em>go 与 move 的差异:</em><br>
+<em>move 和 go 都是使机器人机械臂动作的命令。两者之间的最大不同是 go 是进行 PTP(点对点) 动作，而 move 是在直线轨道上移动机械臂。在重视到达目标点时的机械臂的姿势时，使用 go 命令；而更重视控制动作中的机械臂的轨迹时，使用 move 命令。在 go 命令中，在将机械臂停止在动作的目标坐标之前，必须减速。</em></p>
+<p><em>go 与 jump 的差异:</em><br>
+<em>jump 和 go 都是以 PTP(点对点) 动作移动机械手的命令。但是，jump 拥有一个 go 所没有的功能。jump 首先将机械手的夹具末端抬起到LimZ值(Z坐标值初始值)，然后水平移动机械臂，在达到目标坐标的上空时开始下降动作。这种移动的优点是可以切实地避开障碍物，更重要的是通过吸附和配置动作可以提高作业的循环时间。</em></p>
+<p><em>向 go 发出适当的速度和加减速度指示:</em><br>
+<em>go 命令的动作速度和加减速度的设置可以通过 setSpeed 和 setAccel 命令实施。setSpeed 和 setAccel 命令与 go 命令相同，均可对 PTP(点对点) 动作进行设置，此点是至关重要的。</em></p>
+<hr>
+<p><h102 id="102"><strong>③指令说明</strong></h102></p>
+<blockquote>
+<p>1  配置</p>
+</blockquote>
+<hr>
+<p><h30 id="30">robot</h30></p>
+<ul>
+<li>函数: robot</li>
+<li>描述: 选择机械手，包括模式（&quot;RR&quot;或&quot;KENT&quot;）选择，轴数选择4轴或6轴</li>
+<li>输入: robot(轴数,&quot;品牌&quot;);</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>robot(4,&quot;RR&quot;);//选择4轴，RR品牌
+robot(4,&quot;KENT&quot;);//选择4轴，KENT品牌
+robot(6,&quot;RR&quot;);//选择6轴，RR品牌
+robot(6,&quot;KENT&quot;);//选择6轴，KENT品牌
+</code></pre>
+<hr>
+<p><h19 id="18">runLuaFile</h19></p>
+<ul>
+<li>函数: runLuaFile</li>
+<li>描述: 运行指定路径的lua脚本文件</li>
+<li>输入: runLuaFile(LuaFilePath);例如LuaFilePath=”../test.lua”</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>runLuaFile(”../test.lua”);//运行上一目录下的test.lua脚本文件
+</code></pre>
+<hr>
+<p><h20 id="19">sendFile</h20></p>
+<ul>
+<li>函数: sendFile</li>
+<li>描述: 通过tcp发送文件</li>
+<li>输入: sendFile(“文件名称”, 文件大小)；</li>
+<li>返回: Err_InputArgs --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>--abc.yml文件大小是1000字节
+FileName=”abc.yml”
+sendFile(FileName,1000) --发送文件abc.yml
+... --继续发送文件内容
+</code></pre>
+<hr>
+<p><h21 id="20">openFreqStatusPort</h21></p>
+<ul>
+<li>函数: openFreqStatusPort</li>
+<li>描述: 请求服务端打开一个端口，按照给定的刷新频率不停的返回机械手状态,IP地址是连接机械手的IP地址</li>
+<li>输入: openFreqStatusPort(端口号,刷新时间)；刷新时间毫秒(ms)</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>--假设连接机械手的IP地址是192.168.0.1
+openFreqStatusPort(5656,100)；//打开端口号，100ms刷新一次
+客户端可以这个IP地址192.168.0.1,端口号5656,连接到服务器,按照每隔100ms接收机械手返回的状态
+</code></pre>
+<hr>
+<p><h28 id="27">luaSleep</h28></p>
+<ul>
+<li>函数: luaSleep</li>
+<li>描述: 指定的事件条件成立之前或指定时间内，使程序处于待机状态。设置延时时间，单位是秒(second)</li>
+<li>输入: luaSleep(time);time的单位是秒(second)</li>
+<li>返回: Err_InputArgs --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>luaSleep(2.1);//等待2.1s
+</code></pre>
+<blockquote>
+<p>2  获取机械手信息</p>
+</blockquote>
+<hr>
+<p><h35 id="35">getPulses</h35></p>
+<ul>
+<li>函数: getPulses</li>
+<li>描述: 获取机械手各轴马达的当前脉冲</li>
+<li>输入: getPulses();</li>
+<li>返回: 脉冲数组</li>
+<li>例子:</li>
+</ul>
+<pre><code>getPulses();//返回当前的脉冲数组 [182044,182049,272,86,0,0]，分别对应马达1-6
+</code></pre>
+<hr>
+<p><h34 id="34">getPos</h4></p>
+<ul>
+<li>函数: getPos</li>
+<li>描述: 获取机械手当前位置,返回(x,y,z,u,v,w)信息</li>
+<li>输入: getPos();</li>
+<li>返回: 坐标和姿态数据的数组</li>
+<li>例子:</li>
+</ul>
+<pre><code>getPos();//返回当前坐标(101.12,201.265,30.2,60.12,23.4,90.2658)
+</code></pre>
+<hr>
+<p><h23 id="22">getGlobalPoint</h23></p>
+<ul>
+<li>函数: getGlobalPoint</li>
+<li>描述: 获取点信息，例如P0是全局点变量，P0点信息如下：</li>
+</ul>
+<pre><code>Id: 0
+Elbow: A
+Hand: L
+IsTeach: 1
+Descripton: FDDI1_HIGH
+Data: [136.86347127, -470.45043116,LUA_TUSERDATA 286.44892721, -89.21789268, -54.75090832, -88.34883695]
+</code></pre>
+<p>通过getGlobalPoint(P0)获取P0信息。</p>
+<ul>
+<li>输入: getGlobalPoint(P0);</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>getGlobalPoint(P0);//等同于调用go(P0)；go(P0, “I”)
+</code></pre>
+<hr>
+<p><h24 id="23">getRobotState</h24></p>
+<ul>
+<li>函数: getRobotState</li>
+<li>描述: 获取机械手的当前状态</li>
+<li>输入: getRobotState();</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>getRobotState();
+
+机械手状态格式如下：
+err: 0
+ErrMsg:  
+CmdName: getRobotState
+Pos_mm: [418.399,-0.00199016,629.92,-1.56615,-89.9941,-178.434]
+Joint_deg: [-0.000272388,-0.000299133,-0.00895182,-0.00258502,0.0151611,0.00274658]
+Pulse: [-12,-11,-264,-48,276,36]
+Output: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Input: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+Speed: [3,45,3]
+Accel: [1,45,1]
+HandMode: 0
+Mov_Elbow: 0
+targetOK: 1
+</code></pre>
+<hr>
+<p><h22 id="21">addPtsFromYml</h22></p>
+<ul>
+<li>函数: addPtsFromYml</li>
+<li>描述: 从点数据yaml文件获得点信息，添加到全局变量</li>
+<li>输入: addPtsFromYml();</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>比如点数据文件如下:
+- Id: 101
+Elbow: A
+Hand: R
+IsTeach: 0
+Description: &quot;0&quot;
+Data: [0,1,2,3,4,5]
+- Id: 102
+Elbow: A
+Hand: L
+IsTeach: 1
+Description: &quot;test&quot;
+Data: [380.4,-0.000663152,580.9,0,-90,180]
+- Id: 103
+Elbow: B
+Hand: L
+IsTeach: 0
+Description: &quot;test point&quot;
+Data: [0,0,0,0,0,0]
+
+    发送文件到服务端的命令: &quot;sendFile('MyPoint.pts')&quot;; 成功后服务端会存在一个同样名称的副本&quot;MyPoint.pts&quot;
+    将&quot;MyPoint.pts&quot;标志了已示教的点添加到全局变量, 例如上述例子的Id=102被示教&quot;IsTeach: 1&quot;,执行完该步骤后lua会添加一个P102的全局变量; 命令是: 'addPtsFromYml(&quot;MyPoint.pts&quot;)'
+    然后即可使用&quot;go(P102)&quot;或&quot;go(P102, 'I')&quot;,控制机械手按照指定的手模式&quot;LA&quot;到达位置: [380.4,-0.000663152,580.9,0,-90,180].
+</code></pre>
+<blockquote>
+<p>3  go与ja命令设置</p>
+</blockquote>
+<hr>
+<h2 id="1">go</h2>
+<ul>
+<li>函数: go</li>
+<li>描述: go 用于以 PTP(点对点)动作将机器人机械臂的所有关节同时移动。机械手以给定的姿态到达指定位置(坐标或关节角度)</li>
+<li>输入:<br>
+go(x,y,z,u,v,w,'可选参数');//以具体坐标值指定移动目标。(x,y,z)表示设置的坐标，(u,v,w)表示设置的姿态角，可选参数有L,R,A,B,I,含义可见上面的参数说明。<br>
+go(P0);//以特定点编号进行指定，如P0是一个点编号，则设置机械手去到P0点信息的坐标和姿态角<br>
+go(ja(j1,j2,j3,j4,j5,j6),”可选参数”); //设置各关节姿态角</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>go有两种模式：
+1. 笛卡尔坐标系
+1.1  
+6轴机械手：
+    go(10.0,20.5,30.8,35.23,40.1,-20.9);//非打断模式，默认手模式，机械手到达(10.0,20.5,30.8)的XYZ坐标，姿态角到达(35.23,40.1,-20.9)。
+
+    go(0.01,-202.2,300.221,20,-40.23,90.41234，'I');//打断模式，默认手模式，机械手到达(0.01,-202.2,300.221)的XYZ坐标，姿态角到达(20,-40.23,90.41234)。
+
+    go(20,433.2,103.3,10,-20,-60，'R');//非打断模式，右手模式，机械手到达(20,433.2,103.3)的XYZ坐标，姿态角到达(10,-20,-60)。
+
+    go(0,500.323,414.23,-123.24,-50,-69.4，'IRA');//打断模式，右高手模式，机械手到达(0,500.323,414.23)的XYZ坐标，姿态角到达(-123.24,-50,-69.4)。
+
+
+1.2 
+4轴机械手：
+    go(10.0,20.5,30.8,35.23);//非打断模式，默认手模式，机械手到达(10.0,20.5,30.8)的XYZ坐标，姿态角到达(35.23)。
+
+    go(0.01,-202.2,300.221,20,'I');//打断模式，默认手模式，机械手到达(0.01,-202.2,300.221)的XYZ坐标，姿态角到达(20)。
+
+    go(20,433.2,103.3,10,'R');//非打断模式，右手模式，机械手到达(20,433.2,103.3)的XYZ坐标，姿态角到达(10)。
+
+    go(0,500.323,414.23,-123.24,'IRA');//打断模式，右高手模式，机械手到达(0,500.323,414.23)的XYZ坐标，姿态角到达(-123.24)。
+
+1.3 
+调用点信息:
+    go(P0);//以点编号表示位置信息，如P0是一个点编号，表示机械手去到P0点信息的坐标和姿态角。
+
+    P0点信息的产生是通过getGlobalPoint()获取，即getGlobalPoint(P0)将获取的点信息给P0。
+    P0是全局点变量，例如P0点信息如下：
+    Id: 0
+    Elbow: A
+    Hand: L
+    IsTeach: 1
+    描述: FDDI1_HIGH
+    Data: [136.86347127, -470.45043116,LUA_TUSERDATA 286.44892721, -89.21789268, -54.75090832, -88.34883695]
+    
+    
+    go(P0);//表示以'LA'手模式去到坐标位置[136.86347127, -470.45043116, 286.44892721, -89.21789268, -54.75090832, -88.34883695]
+    等同执行goCoord(136.86347127, -470.45043116, 286.44892721, -89.21789268, -54.75090832, -88.34883695,'LA')
+
+    
+
+2. 关节模式：
+go(ja(j1,j2,j3,j4,j5,j6),”可选参数”); 
+
+go(ja(90,100,120,-20,-50,10)，”I”);//打断模式,关节j1-j6旋转设定的角度，分别旋转(90,100,120,-20,-50,10)角度
+
+go(ja(90,0,0,0,0,0)，””);//非打断模式,关节j1-j6旋转设定的角度，分别旋转(90,0,0,0,0,0)角度
+
+</code></pre>
+<hr>
+<p><h31 id="31">coord</h31></p>
+<ul>
+<li>函数: coord</li>
+<li>描述: 产生一个包含坐标和姿态的table</li>
+<li>输入: coord(x,y,z,u,v,w);</li>
+<li>返回: 一个表(table)</li>
+<li>例子:</li>
+</ul>
+<pre><code>Point=cood(518.4, 0, 629.89, 0, -90, -180);//产生一个表(table)，名字叫Point
+go(Point);//传入一个表(table)给go命令
+go(Point,&quot;I&quot;);//机械手到达(518.4, 0, 629.89)位置，姿态角旋转到(0, -90, -180),打断模式
+
+等同于
+go(cood(518.4, 0, 629.89, 0, -90, -180));//机械手到达(518.4, 0, 629.89)位置，姿态角旋转到(0, -90, -180),非打断模式
+go(cood(518.4, 0, 629.89, 0, -90, -180),&quot;I&quot;);//机械手到达(518.4, 0, 629.89)位置，姿态角旋转到(0, -90, -180),打断模式
+</code></pre>
+<hr>
+<h3 id="2">goCoord</h3>
+- 函数: goCoord
+- 描述: 机械手以点对点的方式到达指定坐标
+- 输入: goCoord(x,y,z,u,v,w,'可选参数'),可选参数:L表示左手模式，R表示右手模式，A表示是高手模式，B表示低手模式，I表示可被打断,无参数
+- 返回: RetVal --> 错误码返回值，请看返回错误码说明
+- 例子: 
+<pre><code>goCoord(10.0,20.5,30.8,35.23,40.1,-20.9);//非打断模式，默认手模式，机械手到达(10.0,20.5,30.8)，姿态角(35.23,40.1,-20.9)。
+goCoord(0.01,-202.2,300.221,20,-40.23,90.41234,'IR');//打断模式，右手模式，机械手到达(0.01,-202.2,300.221)，姿态角(20,-40.23,90.41234)。
+goCoord(0,500.323,414.23,-123.24,-50,-69.4,&quot;IRA&quot;);//打断模式，右高手模式，机械手到达(0,500.323,414.23)，姿态角(-123.24,-50,-69.4)。
+
+</code></pre>
+<hr>
+<h5 id="4">goDelta</h5> 
+<ul>
+<li>函数: goDelta</li>
+<li>描述: 给定坐标增量，在上一坐标上增加给定的增量，以点对点的运动方式到达增量后的坐标。</li>
+<li>输入:<br>
+goDelta(detlax,detlay,detlaz,detlau,deltav,detlaw);<br>
+detlax,detlay,detlaz,分别表示各xyz轴的坐标增量，单位是毫米(mm)；<br>
+detlau,deltav,detlaw，分别表示各uvw轴的角度增量，单位是角度(degree)；</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>goDetla(100,200,300,10.3,0,-20.4);//在原坐标的基础上，xyz轴各增加(100,200,300);在原姿态的基础上，uvw轴各增加(10.3,0,-20.4)角度。
+</code></pre>
+<hr>
+<p><h32 id="32">ja</h32></p>
+<ul>
+<li>函数: ja</li>
+<li>描述: 产生一个包含各轴姿态角的table</li>
+<li>输入: ja(j1,j2,j3,j4,j5,j6);</li>
+<li>返回: 一个表(table)</li>
+<li>例子:</li>
+</ul>
+<pre><code>J=ja(90,-90,0, 0, -90, -180);//产生一个table，名字叫Point
+go(J);//传入一个table给go函数，//各轴依次转动(90,-90,0, 0, -90, -180)姿态角
+
+等同于
+go(ja(90,-90,0, 0, -90, -180));//各轴依次转动(90,-90,0, 0, -90, -180)姿态角
+</code></pre>
+<hr>
+<p><h33 id="33">jaDelta</h33></p>
+<ul>
+<li>函数: jaDelta</li>
+<li>描述: 设定增量角度，在各轴原角度的基础上旋转到增加增量后的角度。</li>
+<li>输入: jaDelta(10,20,30,-40,-50,-60);</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>jaDelta(10,20,30,-40,-50,-60);//设定各轴的增量角度是(10,20,30,-40,-50,-60),在原姿态角的基础上旋转到增加增量后的角度 
+</code></pre>
+<hr>
+<p><h8 id="7">jaToFarthest</h8></p>
+<ul>
+<li>函数: jaToFarthest</li>
+<li>描述: 在当前坐标点上，根据传入的参数将机械手的关节往正/负方向旋转到最大角度。</li>
+<li>输入: jaToFarthest(index,+/-1)；index范围是0-5，0-5分别表示各j1-j6各关节编号；+1表示正方向，-1表示负方向</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>jaToFarthest(0,1);//表示j1关节往正方向旋转到最大角度。
+JaToFarthest(5,-1);//表示j6关节往负方向旋转到最大角度。
+</code></pre>
+<hr>
+<h4 id="3">goja</h4>
+<ul>
+<li>函数: goja</li>
+<li>描述: 机械臂的关节以给定的角度旋转</li>
+<li>输入: goja(j1,j2,j3,j4,j5,j6，'可选参数')，可选参数是'I'，表示打断模式</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>goja(90,0,0,0,0,0); //默认手模式，关节j1-j6旋转设定的角度，分别旋转(90,0,0,0,0,0)角度
+goja(23.43,-90,20,3.3,23.456,0,'I');//可打断模式，关节j1-j6旋转设定的角度，分别旋转(23.43,-90,20,3.3,23.456,0)角度
+</code></pre>
+<hr>
+<p><h36 id="36">setSpeed</h36></p>
+<ul>
+<li>函数: setSpeed</li>
+<li>描述: 设置go和ja命令的速度</li>
+<li>输入: setSpeed(n);n属于0-100的浮点数，表示设置的速度相当于最大速度的百分比</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>setSpeed(40.43);//设置机械手当执行go或ja命令时的速度，相当于最大运行速度的40.43%的速度
+</code></pre>
+<hr>
+<p><h37 id="37">getSpeed</h37></p>
+<ul>
+<li>函数: getSpeed</li>
+<li>描述: 获取go和ja命令运行时的速度</li>
+<li>输入: getSpeed();</li>
+<li>返回: 当前速度相对于最大速度的百分比，范围是0-100的浮点数或整数</li>
+<li>例子:</li>
+</ul>
+<pre><code>getSpeed();//当执行go或ja命令时,调用getSpeed()会返回机械手的当前速度
+</code></pre>
+<hr>
+<p><h38 id="38">setAccel</h38></p>
+<ul>
+<li>函数: setAccel</li>
+<li>描述: 设置go和ja命令的加速度</li>
+<li>输入: setAccel(n);n属于0-100的浮点数，表示设置加速度相当于最大加速度的百分比</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>setAccel(80.89);//设置机械手执行go或ja命令时的速度，相当于最大运行速度的80.89%的加速度
+</code></pre>
+<hr>
+<p><h39 id="39">getAccel</h39></p>
+<ul>
+<li>函数: getAccel</li>
+<li>描述: 获取go和ja命令运行时的加速度</li>
+<li>输入: getAccel();</li>
+<li>返回: 当前加速度相对于最大加速度的百分比，范围是0-100的浮点数或整数</li>
+<li>例子:</li>
+</ul>
+<pre><code>getAccel();//当执行go或ja命令时,调用getAccel()会返回机械手的当前加速度
+</code></pre>
+<blockquote>
+<p>4  move命令设置</p>
+</blockquote>
+<hr>
+<p><h9 id="8">move</h9></p>
+<ul>
+<li>函数: move</li>
+<li>描述: 机械手以直线插补动作的形式到达指定的位置，即机械手在当前位置到指定位置之间以直线的方式移动。</li>
+<li>输入: move(x,y,z,u,v,w，'可选参数');可选参数只有I，I表示可被打断</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>move(10.345,20.2323,30.5342,90,-45,45);//默认手模式，以直线的方式从当前坐标移动到坐标(10.345,20.2323,30.5342)，到达姿态角(90,-45,45)
+move(10.2344,20.9685,30.3245,90.09234,-45.134,45.6547,'I');//打断模式，以直线的方式从当前坐标移动到坐标(10.2344,20.9685,30.3245)，到达姿态角(90.09234,-45.134,45.6547)
+
+注意:
+不能利用 move 进行的操作:
+进行动作之前，不能确认动作范围。这样的话，即使目标坐标位置在容许动作范围之内，而如果到
+达此处的轨迹通过容许动作范围以外位置，则可能会导致机械臂突然停止，并造成伺服冲击，导致
+发生故障，这很危险。为了防止发生这种情况，高速执行 move 之前，请先以低速确认动作范围。
+也就是说，即使目标坐标在机械臂动作范围之内，从物理角度来讲，如果通过 move 动作到达此处
+的轨迹超出机械臂容许动作范围，机械臂则动不了。
+</code></pre>
+<hr>
+<h6 id="5">moveDelta</h6> 
+<ul>
+<li>函数: moveDelta</li>
+<li>描述: 给定坐标增量，在上一坐标上增加给定的增量，以直线运动方式到达增量后的坐标。</li>
+<li>输入:<br>
+moveDelta(detlax,detlay,detlaz,detlau,deltav,detlaw);<br>
+detlax,detlay,detlaz,单位是毫米(mm);<br>
+detlau,deltav,detlaw，单位是角度(degree);</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>goDetla(100,200,300,90,0,-90);//在原坐标的基础上，xyz轴各增加(100,200,300);在原姿态的基础上，uvw轴各增加(90,0,-90)角度。
+</code></pre>
+<hr>
+<p><h7 id="6">moveToFarthest</h7></p>
+<ul>
+<li>函数: moveToFarthest</li>
+<li>描述:在当前坐标点上，根据传入的参数将机械手往x轴或y轴或z轴移动到对应轴方向的最远边界点。</li>
+<li>输入: (index, +/-1);index范围是0-5，0-2分别表示各xyz轴，3-5分别表示各uvw轴；+1表示正方向，-1表示负方向</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>index: [0,2] 底层调用move到最远点; [3,5]底层调用的是go指令
+moveToFarthest(0,1);//表示往当前坐标点的x轴正方向移动到最远边界点，底层调用move命令
+moveToFarthest(2,-1);//表示往当前坐标点的z轴负方向移动到最远边界点，底层调用move命令
+moveToFarthest(4,1);//表示往当前坐标点的V轴正方向选转到最大正方向角度，底层调用go命令
+moveToFarthest(5,-1);//表示往当前坐标点的w轴正方向移动到最大负方向角度，底层调用go命令
+</code></pre>
+<hr>
+<p><h16 id="15">setMoveSpeed</h16></p>
+<ul>
+<li>函数: setMoveSpeed</li>
+<li>描述: 以表达式或数值指定相对于最大动作速度（ PTP 动作）的比例（ 1 - 100 的整数或浮点数，单
+位： %）。</li>
+<li>输入: setMoveSpeed(speed);speed表示百分比，范围是0-100，</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>setMoveSpeed(50.0);//以50.0%的百分比设置运行速度
+</code></pre>
+<hr>
+<p><h17 id="16">getMoveSpeed</h17></p>
+<ul>
+<li>函数: getMoveSpeed</li>
+<li>描述: 获取速度数值指定相对于最大动作速度（ PTP 动作）的比例（ 1 - 100 的整数，单
+位： %）。</li>
+<li>输入: getMoveSpeed();</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明 ; speed --&gt; 获取的当前move指令的速度</li>
+<li>例子:</li>
+</ul>
+<pre><code>GetSpeed=getMoveSpeed();//GetSpeed得到当前速度相对于相对于最大动作速度（ PTP 动作）的比例
+</code></pre>
+<hr>
+<p><h40 id="40">setMoveAccel</h40></p>
+<ul>
+<li>函数: setMoveAccel</li>
+<li>描述: 设置move命令的加速度</li>
+<li>输入: setMoveAccel(n);n属于0-100的浮点数，表示速度相当于最大的速度的百分比</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>setMoveAccel(40.89);//当执行move命令时，调用setMoveAccel(40.89)，则会设置当前的加速度为最大运行加速度的40.89%
+</code></pre>
+<hr>
+<p><h41 id="41">getMoveAccel</h41></p>
+<ul>
+<li>函数: getMoveAccel</li>
+<li>描述: 获取move命令运行时的加速度</li>
+<li>输入: getMoveAccel();</li>
+<li>返回: 当前加速度相对于最大加速度的百分比，范围是0-100的浮点数</li>
+<li>例子:</li>
+</ul>
+<pre><code>getMoveAccel();//当执行move命令时，调用getMoveAccel()，则会获取当前加速度相当于最大运行加速度的百分比
+</code></pre>
+<blockquote>
+<p>5  单方向与单旋转轴设置</p>
+</blockquote>
+<hr>
+<p><h10 id="9">x_pace</h10></p>
+<ul>
+<li>函数: x_pace</li>
+<li>描述: 机械手在X轴上方向以给定的步长移动</li>
+<li>输入: x_pace(DeltaX);单位毫米(mm)，在X轴上以DeltaX mm为步长移动</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>x_pace(10);//在X轴上以10 mm为步长移动
+</code></pre>
+<hr>
+<p><h11 id="10">y_pace</h11></p>
+<ul>
+<li>函数: y_pace</li>
+<li>描述: 机械手在Y轴上方向以给定的步长移动</li>
+<li>输入: y_pace(DeltaY);单位毫米(mm)，在Y轴上以DeltaY mm为步长移动</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>y_pace(10);//在Y轴上以10 mm为步长移动
+</code></pre>
+<hr>
+<p><h12 id="11">z_pace</h12></p>
+<ul>
+<li>函数: z_pace</li>
+<li>描述: 机械手在Z轴上方向以给定的步长移动</li>
+<li>输入: z_pace(DeltaZ);单位毫米(mm)，在Z轴上以DeltaZ mm为步长移动</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>z_pace(10);//在Z轴上以10 mm为步长移动
+</code></pre>
+<hr>
+<p><h13 id="12">u_pace</h13></p>
+<ul>
+<li>函数: u_pace</li>
+<li>描述: 机械手在U轴方向以给定的步长旋转</li>
+<li>输入: u_pace(DeltaU);单位角度(degree)，在U轴上以DeltaU度为步长旋转</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>u_pace(0.1);//在U轴上以0.1度为步长旋转，单位°
+</code></pre>
+<hr>
+<p><h14 id="13">v_pace</h14></p>
+<ul>
+<li>函数: v_pace</li>
+<li>描述: 机械手在V轴方向以给定的步长旋转</li>
+<li>输入: v_pace(DeltaV);单位角度(degree)，在V轴上以DeltaV度为步长旋转</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>v_pace(0.1);//在V轴上以0.1度为步长旋转，单位°
+</code></pre>
+<hr>
+<p><h15 id="14">w_pace</h15></p>
+<ul>
+<li>函数: w_pace</li>
+<li>描述: 机械手在W轴方向以给定的步长旋转</li>
+<li>输入: w_pace(DeltaW);单位角度(degree)，在W轴上以DeltaW度为步长旋转</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>w_pace(0.1);//在W轴上以0.1度为步长旋转，单位°
+</code></pre>
+<blockquote>
+<p>6  输入输出设置</p>
+</blockquote>
+<hr>
+<p><h25 id="24">on</h25></p>
+<ul>
+<li>函数: on</li>
+<li>描述: 以整数值指定要设为 ON 的 I/O 输出位。I/O范围是0-31</li>
+<li>输入: on(1,2,3,...);//1,2,3,...表示IO编号</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>on(2,4);//设置第2,4IO编号为ON状态
+on(1,2,3,4,5,6,...)；//表示设置1,2,3,4,5,6，...等IO的ON状态
+</code></pre>
+<hr>
+<p><h26 id="25">off</h26></p>
+<ul>
+<li>函数: off</li>
+<li>描述: 以整数值指定要设为 OFF 的 I/O 输出位。I/O范围是0-31</li>
+<li>输入: off(1,2,3,...);//1,2,3,...表示IO编号</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>off(2,4);//设置第2,第4个IO为ON状态
+off(1,2,3,4,5,6,...)；//表示设置1,2,3,4,5,6，...等IO的OFF状态
+</code></pre>
+<hr>
+<p><h27 id="26">isOn</h27></p>
+<ul>
+<li>函数: isOn</li>
+<li>描述: 查询I/O状态,状态是ON或OFF，I/O编号范围是0-31，只能输入单个I/O查询</li>
+<li>输入: isOn(n)；n的范围是0-31</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明； State --&gt; I/O状态</li>
+<li>例子:</li>
+</ul>
+<pre><code>isOn(2);//查询第2个I/O的状态，返回ON或OFF
+</code></pre>
+<blockquote>
+<p>7  急停设置</p>
+</blockquote>
+<hr>
+<p><h18 id="17">emgStop</h18></p>
+<ul>
+<li>函数: emgStop</li>
+<li>描述: 急停设置，1--&gt;急停，0--&gt;取消急停，emgStop()获取当前状态</li>
+<li>输入:<br>
+emgStop(0);<br>
+emgStop(1);<br>
+emgStop();</li>
+<li>返回: RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>emgStop(1);//急停
+emgStop(0);//取消急停
+emgStop();//获取当前状态
+</code></pre>
+<hr>
+<p><h42 id="42">getEmgStop</h42></p>
+<ul>
+<li>函数: getEmgStop</li>
+<li>描述: 获取当前机械手的运动状态，停止还是运动</li>
+<li>输入: getEmgStop();</li>
+<li>返回: 0表示正在运动，1表示停止运动，RetVal --&gt; 错误码返回值，请看返回错误码说明</li>
+<li>例子:</li>
+</ul>
+<pre><code>getEmgStop();//返回0或1；0表示正在运动，1表示停止运动
+</code></pre>
+<hr>
+<p><h103 id="103"><strong>④指令返回错误码说明:</strong></h103></p>
+<ul>
+<li>-# Err_MoveThreadBusy  -27: There is a moving command running in the background thread.(后台线程有一个移动的命令在运行)</li>
+<li>-# Err_ScriptFileRunning -26: There is a lua script file running in the background thread.(lua脚本文件正在后台线程运行)</li>
+<li>-# Err_SetThreadAttr  -25: Faile to set the thread attribution.(设置线程属性失败)</li>
+<li>-# Err_CreateThread   -24: Failed to create the background thread.(创建后台线程失败)</li>
+<li>-# Err_AccessSemFlag  -23: Failed to access the semaphore flag.(获取信号量标志失败)</li>
+<li>-# Err_OverRouteShm   -22: Route shared memory is writting.(Route-shm共享内存正在写入)</li>
+<li>-# Err_RegexPattern   -21: the Regex Pattern is wrong.(正则表达式模式错误)</li>
+<li>-# Err_YamlParser     -18: Failed to parser the yaml file, or the yaml file not exist.(解析yaml文件失败，或yaml文件不存在)</li>
+<li>-# Err_RouteShm       -17: Failed to read/write the Route Shared Memory.(读写Route-shm共享内存失败)</li>
+<li>-# Err_Power          -16: The power flag of robot is not desirable.(机器的电源标志不合法)</li>
+<li>-# Err_RobotInit      -15: The LogicRobot object is not initialized.(LogicRobot对象未初始化)</li>
+<li>-# Err_IONum          -14: The number of IO is invalid.(IO编号无效)</li>
+<li>-# Err_InputArgs      -13: The input function parameters is invalid.(输入函数参数无效)</li>
+<li>-# Err_ParamNotInit   -12: Parameter not be initialized.(参数初始化失败)</li>
+<li>-# Err_FoundFile      -11: Failed to find the file.(未能找到文件)</li>
+<li>-# Err_UnequalZero    -10: the value != 0. But the value expects 0.(当前实际值不是0，但期望值是0)</li>
+<li>-# Err_EqualZero      -9 : the value == 0. But the value does not expect 0.(当前实际值是0，但期望值不是0)</li>
+<li>-# Err_CureSteps      -8 : The calculated cure-steps less than 4.(计算的固化步骤小于4)</li>
+<li>-# Err_MemMalloc      -7 : Failed to call the malloc() function.(调用malloc()函数失败)</li>
+<li>-# Err_Ik             -6 : Failed to solve the ik.(解算ik失败)</li>
+<li>-# Err_OutCoordRange  -5 : The calculated coordinate (mm) value is out of the valid range.(计算的坐标值超出有效范围)</li>
+<li>-# Err_OutJointsRange -4 : The calculated robot joint angle is out of the valid range.(计算的机械臂关节角度超出有效范围)</li>
+<li>-# Err_Trajectory     -3 : Failed to calculate the robot trajectory.(计算机器轨迹失败)</li>
+<li>-# Err_RWShm          -2 : Failed to Read/Write Shared Memory.(读写共享内存失败)</li>
+<li>-# Err_Error          -1 : General Error.(错误)</li>
+<li>-# OK                  0 : OK.(正常)</li>
+</ul>
+<hr>
+</div></body></html>

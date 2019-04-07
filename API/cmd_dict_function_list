@@ -1,0 +1,35 @@
+self.cmd_dict = {
+    "init_robot" : self.init_robot,
+    "getCurPos" : self.my_robot.getCurPos,
+    "goPos" : self.my_robot.goPos,
+    "goDeltaPos": self.my_robot.goDeltaPos,
+    "getCurJointAngle": self.my_robot.getCurJointAngle,
+    "goJointAngle": self.my_robot.goJointAngle,
+    "goDeltaJointAngle": self.my_robot.goDeltaJointAngle,
+    "setSpeed": self.my_robot.setSpeed,
+    "setAccel": self.my_robot.setAccel,
+    "setHandMode": self.my_robot.setHandMode,
+    "waitMoveDone": self.my_robot.waitMoveDone,
+    "checkTargetOK": self.my_robot.checkTargetOK,
+    #"solveIK": self.my_robot.solveIK,
+    #"solveFK": self.my_robot.solveFK,
+    "stop": self.my_robot.stop,
+    "close_robot": self.close_robot,
+    "help": self.help
+}
+
+def init_robot(self, ip='127.0.0.1', port=2005):
+def getCurPos(self):
+def goPos(self, pos, error=None, type="go", timeout=30, handModeFlag=None):
+def goDeltaPos(self, deltaPos, error=None, type="go", timeout=30):
+def getCurJointAngle(self):
+def goJointAngle(self, jointAngle_deg, error=None, timeout=30):
+def goDeltaJointAngle(self, deltaAngle_deg, error=None, timeout=30):
+def setSpeed(self, speed):
+def setAccel(self, accel):
+def setHandMode(self, flag):
+def waitMoveDone(self, timeout=30):
+def checkTargetOK(self, pos):
+def stop(self):
+def close_robot(self):
+def help(self):
