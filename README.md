@@ -2,6 +2,8 @@
 HKU 2018-2019 RoboticArmGrasping
 By Lance, Paul, Alex
 
+This project is still undergoing and the source codes will be updated for imporvements.
+
 This project aims to train a DCNN to guide the simulated robot arm's grasping movement. Agents will learn while trying in the environment based on PyBullet-gym. Q-learning strategy is used. The platform used for network is Tensorflow Keras.
 
 In this project, vision-based and data-driven approach was realized to enable robot grasping. CNN architecture combined with HER algorithm was used.
